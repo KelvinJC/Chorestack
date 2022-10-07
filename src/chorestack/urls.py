@@ -21,9 +21,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name='home'),
     path('bugs', views.create_bug, name='create-bug'),
-    path('bugs/', views.all_bugs, name='list-bugs'),
+    path('bugs/', views.all_bugs, name='list-bugs'),   
+    path('bugs/', views.search_all_bugs, name='search-bugs'),
     path('dead_bugs/', views.all_dead_bugs, name='list-dead-bugs'),
-    path('search_dead_bugs/', views.search_dead_bugs, name='search-dead-bugs'),
+    path('squash_bug/<bug_id>', views.squash_bug, name='squash-bug'),
+
+    #path('search_dead_bugs/', views.search_dead_bugs, name='search-dead-bugs'),
 
 
 ]

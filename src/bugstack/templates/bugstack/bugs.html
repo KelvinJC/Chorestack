@@ -2,21 +2,52 @@
 
 
 {% block content %}
-<form class="d-flex" action="{% url 'create-bug' %}" method=POST>
-    {% csrf_token %}
-    <input class="form-control me-2" type="search" placeholder="Bugs go in here" aria-label="Search" name="name" value="{{ name }}">
-    <button class="btn btn-outline-success" type="submit">Add</button>
+<form class="d-flex" action="{% url 'search-bugs' %}" method=GET>
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}">
+    <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
 <br><br>
 {% for bug in bugs %}
-<div class="card">
-    <div class="card-header">Project</div>
-    <div class="card-body">
-      <h5 class="card-title">{{ bug.name }}</h5>
-      <p class="card-text">More info about the bug or project description goes here.</p>
-      <a href="#" class="btn btn-outline-secondary btn-sm">Squash</a>
-    </div>
-</div>
-<br><br>
+    {% if bug.is_active %}
+        <div class="card">
+            <div class="card-header">{{ bug.project.name }}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ bug.name }}</h5>
+              <p class="card-text">{{ bug.error_message }}</p>
+              <a href="#" class="btn btn-outline-secondary btn-sm">More info</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+                  
+          <a href="#" class="btn btn-outline-secondary btn-sm">Update Bug</a>
+          <a href="{% url 'squash-bug' bug.id %}" class="btn btn-outline-danger btn-sm">Squash Bug</a>
+          
+        </div>
+        <br><br>
+    {% endif %}
+<hr>
+{% if bugs_page.has_other_pages %}
+<nav aria-label="...">
+    <ul class="pagination">
+
+        {% if bugs_page.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ bugs_page.previous_page_number }}" aria-label="{{ bugs_page.previous_page_number }}">&#10094;Previous</a>
+      </li>
+        {% endif %}
+        {% for page in custom_range %}
+        {% if page == bugs_page.number %}
+        <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+          {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+          {% endif %}  
+        {% endfor %}      
+        {% if bugs_page.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ bugs_page.next_page_number }}">Next &#10095;</a></li>
+        {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
 {% endfor %}
 {% endblock %}

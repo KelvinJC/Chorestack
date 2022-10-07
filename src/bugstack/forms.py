@@ -1,4 +1,8 @@
-from django import forms
+from django.forms import ModelForm
+from .models import Bug
 
-class BugForm(forms.Form):
-    name = forms.CharField(max_length = 100)
+
+class BugForm(ModelForm):
+    class Meta:
+        model = Bug
+        fields= ['name', 'project', 'error_message', 'description', 'resolution']

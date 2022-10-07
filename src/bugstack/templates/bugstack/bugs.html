@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form class="d-flex" action="{% url 'create-bug' %}" method=POST>
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Bugs go in here" aria-label="Search" name="name" value="{{ name }}">
+    <button class="btn btn-outline-success" type="submit">Add</button>
+  </form>
+<br><br>
+{% for bug in bugs %}
+<div class="card">
+    <div class="card-header">Project</div>
+    <div class="card-body">
+      <h5 class="card-title">{{ bug.name }}</h5>
+      <p class="card-text">More info about the bug or project description goes here.</p>
+      <a href="#" class="btn btn-outline-secondary btn-sm">Squash</a>
+    </div>
+</div>
+<br><br>
+{% endfor %}
+{% endblock %}

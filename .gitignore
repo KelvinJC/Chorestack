@@ -1,3 +1,7 @@
 venv/
-/db/*
+*.sqlite3
 __pycache__/
+
+
+# remember to add when all done
+src/chorestack/settings.py

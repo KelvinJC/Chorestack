@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<form action="{% url 'add-bugs' %}" method=POST>
+<form action="{% url 'create-bug' %}" method=POST>
     {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-outline-success" type="submit">Submit</button>

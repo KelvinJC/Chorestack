@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form class="d-flex" action="{% url 'search-projects' %}" method=POST>
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}">
+    <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+  </form>
+<br><br>
+
+
+{% if click_delete %}
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Aye Bounty Hunter!</strong>
+      <h1>Are you sure you want to delete the {{ project.name }} project?</h1>
+ 
+      <form action="{% url 'delete-project' project.id %}" method=POST>
+        {% csrf_token %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        <br>
+        <input class="btn btn-outline-danger" type="submit" value="Yes"style="float: left; margin-right:15px;"/>
+        <a href="{% url 'all-projects' %}" class="btn btn-outline-primary">Cancel</a>
+  
+  </div>
+</form>
+
+{% for project in all_projects %}
+        <div class="card">
+            <div class="card-header">here here
+              <a href="{% url 'clicked-delete' project.id %}" class="btn btn-outline-danger btn-sm" style="float: right;">Delete</a>    
+              <a href="{% url 'update-project' project.id %}" class="btn btn-outline-secondary btn-sm" style="float: right; margin-right:15px;">Update</a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">{{ project.description }}</p>
+              <a href="#" class="btn btn-outline-secondary btn-sm">More info</a>
+            </div>
+        </div>
+        <br><br>
+{% endfor %}
+{% else %}
+
+{% for project in projects %}
+        <div class="card">
+            <div class="card-header">here here
+              <a href="{% url 'clicked-delete' project.id %}" class="btn btn-outline-danger btn-sm" style="float: right;">Delete</a>    
+              <a href="{% url 'update-project' project.id %}" class="btn btn-outline-secondary btn-sm" style="float: right; margin-right:15px;">Update</a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">{{ project.description }}</p>
+              <a href="#" class="btn btn-outline-secondary btn-sm">More info</a>
+            </div>
+        </div>
+        <br><br>
+{% endfor %}     
+{% endif %}
+{% endblock %}

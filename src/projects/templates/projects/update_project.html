@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<form action="{% url 'update-project' project.id %}" method=POST>
+    {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-success" type="submit">Update</button>
+
+</form>
+
+{% endblock %}

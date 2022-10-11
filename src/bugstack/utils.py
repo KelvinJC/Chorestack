@@ -10,10 +10,8 @@ def get_page_indices(page, paginator):
     try:
         rightIndex = (int(page) + 3)
     except TypeError:
-        rightIndex = 9
-    
-    if leftIndex == 1:
-        rightIndex = 6   
+        rightIndex = 4
+      
 
     if rightIndex > paginator.num_pages:
         rightIndex = paginator.num_pages + 1

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form class="d-flex" action="{% url 'search-projects' %}" method=POST>
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}">
+    <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+  </form>
+<br><br>
+{% if q %}
+{% if search %}
+{% for project in search %}
+        <div class="card">
+            <div class="card-header">here here
+              <a href="{% url 'delete-project' project.id %}" class="btn btn-outline-danger btn-sm" style="float: right;">Delete</a>    
+              <a href="{% url 'update-project' project.id %}" class="btn btn-outline-secondary btn-sm" style="float: right; margin-right:15px;">Update</a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">{{ project.description }}</p>
+              <a href="#" class="btn btn-outline-secondary btn-sm">More info</a>
+            </div>
+        </div>
+        <br><br>
+{% endfor %}
+{% else %}
+<p>
+  <strong><i>Your search term has no results. Try again.</i></strong>
+</p>
+{% endif %}
+{% else %}
+<p>
+  <strong><i>You forgot to enter a search term.</i></strong>
+</p>
+{% endif %}
+{% endblock %}

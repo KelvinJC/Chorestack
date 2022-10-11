@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<form action="{% url 'delete-project' project.id %}" method=POST>
+    {% csrf_token %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Aye Bounty Hunter!</strong> 
+        <h1>Are you sure you want to delete the {{ project.name }} project?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      
+    <br>
+    <input class="btn btn-outline-danger" type="submit" value="Yes"style="float: left; margin-right:15px;"/>
+    <a href="{% url 'all-projects' %}" class="btn btn-outline-primary">Cancel</a>
+    
+    </div>
+</form>
+
+{% endblock %}

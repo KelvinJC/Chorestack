@@ -2,26 +2,33 @@
 
 
 {% block content %}
-<form class="d-flex" action="{% url 'create-bug' %}" method=GET>
+
+
+<form class="d-flex" action="{% url 'search-bugs' %}" method=GET>
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}">
     <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
   </form>
 <br><br>
+{% if q %}
 {% for bug in bugs_page %}
-{% if not bug.is_active %}
-<div class="card">
-    <div class="card-header">{{bug.project.name}}</div>
-    <div class="card-body">
-      <h5 class="card-title">{{ bug.name }}</h5>
-      <p class="card-text">{{ bug.description }}</p>
-      <a href="#" class="btn btn-outline-secondary btn-sm">Squash</a>
-    </div>
-</div>
-{% endif %}
-<br><br>
+    {% if bug.is_active %}
+        <div class="card">
+            <div class="card-header">{{ bug.project.name }}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ bug.name }}</h5>
+              <p class="card-text">{{ bug.error_message }}</p>
+              <a href="#" class="btn btn-outline-secondary btn-sm">More info</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+                  
+          <a href="#" class="btn btn-outline-secondary btn-sm">Update Bug</a>
+          <a href="{% url 'squash-bug' bug.id %}" class="btn btn-outline-danger btn-sm">Squash Bug</a>
+          
+        </div>
+        <br><br>
+    {% endif %}
 {% endfor %}
-
-
 <hr>
 {% if bugs_page.has_other_pages %}
 <nav aria-label="...">
@@ -47,4 +54,8 @@
 {% endif %}
 
 
+
+{% else %}
+    <h1>Hey.. you forgot to enter a search term</h1>
+{% endif %}
 {% endblock %}

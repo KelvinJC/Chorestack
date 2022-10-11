@@ -17,7 +17,16 @@
               <li><a class="dropdown-item" href="{% url 'list-bugs' %}">Live bugs</a></li>
               <li><a class="dropdown-item" href="{% url 'list-dead-bugs' %}">Squashed bugs</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'create-bug' %}">Add bugs</a></li>
+              <li><a class="dropdown-item" href="{% url 'create-bug' %}">Report a bug</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Projects
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'all-projects' %}">View Projects</a></li>
+              <li><a class="dropdown-item" href="{% url 'add-project' %}">Add Project</a></li>
             </ul>
           </li>
         </ul>

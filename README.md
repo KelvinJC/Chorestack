@@ -13,7 +13,7 @@ Within the project, the three apps worthy of note are:
 
 ### Prerequisite
 1. As this is a Django application you will need to have Python installed on your system. You can download and install Python from 
-[https://www.python.org/downloads/). This will allow you to be able to run 'python' commands.
+[https://www.python.org/downloads/]. This will allow you to be able to run 'python' commands.
 
 
 ## Getting Started
